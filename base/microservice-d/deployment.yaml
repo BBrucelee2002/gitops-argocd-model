@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: microservice-d
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: microservice-d
+  template:
+    metadata:
+      labels:
+        app: microservice-d
+    spec:
+      containers:
+        - name: microservice-d
+          image: nginx:1.22
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "128Mi"
+              cpu: "200m"

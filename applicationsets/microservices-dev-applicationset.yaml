@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: microservices-dev
+  namespace: argocd
+spec:
+  generators:
+  - list:
+      elements:
+      - service: microservice-a
+      - service: microservice-b
+      - service: microservice-c
+      - service: microservice-d
+      - service: microservice-e
+  template:
+    metadata:
+      name: '{{service}}-dev'
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/yourusername/your-gitops-repo.git
+        targetRevision: main
+        path: environments/dev/{{service}}
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: dev
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true  # 👈 Argo CD will auto-create the "dev" namespace

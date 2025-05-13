@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: microservice-c
+spec:
+  selector:
+    app: microservice-c
+  ports:
+    - protocol: TCP
+      port: 8082
+      targetPort: 80
