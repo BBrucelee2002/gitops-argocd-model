@@ -1,32 +1,40 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: microservices-dev
+  name: microservices
   namespace: argocd
 spec:
   generators:
-  - list:
-      elements:
-      - service: microservice-a
-      - service: microservice-b
-      - service: microservice-c
-      - service: microservice-d
-      - service: microservice-e
+  - matrix:
+      generators:
+      - list:
+          elements:
+          - env: dev
+            namespace: dev
+          - env: staging
+            namespace: staging
+          - env: prod
+            namespace: prod
+      - list:
+          elements:
+          - service: microservice-a
+          - service: microservice-b
+          - service: microservice-c
+          - service: microservice-d
+          - service: microservice-e
   template:
     metadata:
-      name: '{{service}}-dev'
+      name: '{{service}}-{{env}}'
     spec:
       project: default
       source:
         repoURL: https://github.com/BBrucelee2002/gitops-argocd-model.git
         targetRevision: main
-        path: environments/dev/{{service}}
+        path: environments/{{env}}/
       destination:
         server: https://kubernetes.default.svc
-        namespace: dev
+        namespace: '{{namespace}}'
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
-        syncOptions:
-          - CreateNamespace=true  # 👈 Argo CD will auto-create the "dev" namespace
