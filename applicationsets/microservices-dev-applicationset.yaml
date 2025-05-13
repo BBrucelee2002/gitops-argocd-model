@@ -18,7 +18,7 @@ spec:
     spec:
       project: default
       source:
-        repoURL: https://github.com/yourusername/your-gitops-repo.git
+        repoURL: https://github.com/BBrucelee2002/gitops-argocd-model.git
         targetRevision: main
         path: environments/dev/{{service}}
       destination:
