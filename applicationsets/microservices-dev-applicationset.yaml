@@ -30,7 +30,7 @@ spec:
       source:
         repoURL: https://github.com/BBrucelee2002/gitops-argocd-model.git
         targetRevision: main
-        path: environments/{{env}}/
+        path: environments/{{env}}/{{service}}
       destination:
         server: https://kubernetes.default.svc
         namespace: '{{namespace}}'
@@ -38,3 +38,5 @@ spec:
         automated:
           prune: true
           selfHeal: true
+          syncOptions:
+          - CreateNamespace=true  # 👈 Argo CD will auto-create the "dev" namespace
