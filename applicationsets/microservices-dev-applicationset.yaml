@@ -38,5 +38,5 @@ spec:
         automated:
           prune: true
           selfHeal: true
-          syncOptions:
-          - CreateNamespace=true  # 👈 Argo CD will auto-create the "dev" namespace
+        syncOptions:
+          - CreateNamespace=true
