@@ -2,17 +2,23 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: microservice-a
+  labels:
+    app: microservice-a
+    app.kubernetes.io/name: microservice-a
+    app.kubernetes.io/part-of: microservices
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: microservice-a
-      app.kubernetes.io/part-of: microservice-a  # Add this line
-
+      app.kubernetes.io/name: microservice-a
+      app.kubernetes.io/part-of: microservices
   template:
     metadata:
       labels:
         app: microservice-a
+        app.kubernetes.io/name: microservice-a
+        app.kubernetes.io/part-of: microservices
     spec:
       containers:
         - name: microservice-a

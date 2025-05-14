@@ -2,19 +2,27 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: microservice-c
+  labels:
+    app: microservice-c
+    app.kubernetes.io/name: microservice-c
+    app.kubernetes.io/part-of: microservices
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: microservice-c
+      app.kubernetes.io/name: microservice-c
+      app.kubernetes.io/part-of: microservices
   template:
     metadata:
       labels:
         app: microservice-c
+        app.kubernetes.io/name: microservice-c
+        app.kubernetes.io/part-of: microservices
     spec:
       containers:
         - name: microservice-c
-          image: nginx:1.21
+          image: nginx:1.19
           ports:
             - containerPort: 80
           resources:
