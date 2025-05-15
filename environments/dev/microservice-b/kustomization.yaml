@@ -2,6 +2,3 @@ resources:
   - ../../../base/microservice-b
 patches:
   - path: replica-patch.yaml
-namespace: dev
-commonLabels:
-  app.kubernetes.io/name: microservice-b
