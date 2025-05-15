@@ -9,11 +9,24 @@ resources:
   - microservice-e
   - gateway.yaml
 
-vars:
-  - name: ISTIO_GATEWAY
-    literal: dev-gateway
-  - name: VIRTUAL_SERVICE_HOST
-    literal: dev.example.com
+patches:
+  - target:
+      kind: Gateway
+      name: .*
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: dev-gateway
+  - target:
+      kind: VirtualService
+      name: .*
+    patch: |-
+      - op: replace
+        path: /spec/hosts/0
+        value: dev.example.com
+      - op: replace
+        path: /spec/gateways/0
+        value: dev-gateway
 
 generatorOptions:
   disableNameSuffixHash: true
