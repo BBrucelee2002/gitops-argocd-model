@@ -1,0 +1,18 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: microservice-d
+spec:
+  hosts:
+    - $(VIRTUAL_SERVICE_HOST)
+  gateways:
+    - $(ISTIO_GATEWAY)
+  http:
+    - match:
+        - uri:
+            prefix: /microservice-d
+      route:
+        - destination:
+            host: microservice-d
+            port:
+              number: 80

@@ -7,3 +7,13 @@ resources:
   - microservice-c
   - microservice-d
   - microservice-e
+  - gateway.yaml
+
+vars:
+  - name: ISTIO_GATEWAY
+    literal: dev-gateway
+  - name: VIRTUAL_SERVICE_HOST
+    literal: dev.example.com
+
+generatorOptions:
+  disableNameSuffixHash: true

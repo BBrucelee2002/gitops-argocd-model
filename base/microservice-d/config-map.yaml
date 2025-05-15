@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: microservice-d-config
+data:
+  LOG_LEVEL: "debug"
+
