@@ -2,4 +2,4 @@ resources:
   - ../../../base/microservice-c
 patches:
   - path: replica-patch.yaml
-
+  - path: virtual-service-patch.yaml
