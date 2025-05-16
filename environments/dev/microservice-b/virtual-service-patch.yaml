@@ -1,0 +1,9 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: microservice-b
+spec:
+  gateways:
+    - dev-gateway
+  hosts:
+    - microservice-b.dev.example.com

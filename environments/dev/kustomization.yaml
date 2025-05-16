@@ -9,27 +9,14 @@ resources:
   - microservice-e
   - gateway.yaml
 
-configMapGenerator:
-  - name: global-config
-    literals:
-      - istioGateway=dev-gateway
-      - virtualServiceHost=dev.example.com
+patches:
+  - target:
+      kind: Gateway
+      name: .*
+    patch: |-
+      - op: replace
+        path: /metadata/name
+        value: dev-gateway
 
 generatorOptions:
   disableNameSuffixHash: true
-
-vars:
-  - name: ISTIO_GATEWAY
-    objref:
-      kind: ConfigMap
-      name: global-config
-      apiVersion: v1
-    fieldref:
-      fieldpath: data.istioGateway
-  - name: VIRTUAL_SERVICE_HOST
-    objref:
-      kind: ConfigMap
-      name: global-config
-      apiVersion: v1
-    fieldref:
-      fieldpath: data.virtualServiceHost
