@@ -1,22 +1,22 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
+  apiVersion: kustomize.config.k8s.io/v1beta1
+  kind: Kustomization
 
-resources:
-  - microservice-a
-  - microservice-b
-  - microservice-c
-  - microservice-d
-  - microservice-e
-  - gateway.yaml
+  resources:
+    - microservice-a
+    - microservice-b
+    - microservice-c
+    - microservice-d
+    - microservice-e
+    - gateway.yaml
 
-patches:
-  - target:
-      kind: Gateway
-      name: .*
-    patch: |-
-      - op: replace
-        path: /metadata/name
-        value: dev-gateway
+  patches:
+    - target:
+        kind: Gateway
+        name: .*
+      patch: |-
+        - op: replace
+          path: /metadata/name
+          value: dev-gateway
 
-generatorOptions:
-  disableNameSuffixHash: true
+  generatorOptions:
+    disableNameSuffixHash: true

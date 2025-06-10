@@ -1,4 +1,0 @@
-resources:
-  - ../../../base/microservice-b
-patches:
-  - path: replica-patch.yaml
