@@ -1,0 +1,27 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: argocd-alerts
+  namespace: monitoring
+  labels:
+    release: prometheus
+spec:
+  groups:
+    - name: argocd.rules
+      rules:
+        - alert: ArgoCDAppOutOfSync
+          expr: argocd_app_sync_status{status="OutOfSync"} > 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Argo CD App is OutOfSync"
+            description: "App '{{ $labels.name }}' is OutOfSync for more than 5 minutes"
+        - alert: ArgoCDAppDegraded
+          expr: argocd_app_health_status{status="Degraded"} > 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Argo CD App is Degraded"
+            description: "App '{{ $labels.name }}' is Degraded for more than 5 minutes"
